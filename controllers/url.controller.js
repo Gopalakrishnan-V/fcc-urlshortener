@@ -7,9 +7,9 @@ module.exports.createShortUrl = function(req, res) {
   const { url } = req.body;
   const domain = urlModule.parse(url).hostname;
 
-  dns.resolve4(domain, function(err, addressess) {
+  dns.resolve4(domain || "", function(err, addressess) {
     if (err) {
-      return res.send({ error: "invalid URL", err: err.toString() });
+      return res.send({ error: "invalid URL" });
     } else {
       const urlObj = new Url({
         original: url
